@@ -3,21 +3,27 @@
 <head>
         <meta charset="utf-8" />
         <meta name="generator" content="Pelican" />
-        <title>mjchi7 blog - git</title>
+        <title>What Does --first-parent Flag in Git Show Do?</title>
         <link rel="stylesheet" href="/theme/css/main.css" />
+        <meta name="description" content="Git log for merge commits and the meaning of first-parent" />
 </head>
 
 <body id="index" class="home">
         <header id="banner" class="body">
                 <h1><a href="/">mjchi7 blog</a></h1>
                 <nav><ul>
-                    <li><a href="/category/article.html">Article</a></li>
+                    <li class="active"><a href="/category/article.html">Article</a></li>
                 </ul></nav>
         </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="/what-does-first-parent-flag-in-git-show-do.html" rel="bookmark"
+           title="Permalink to What Does --first-parent Flag in Git Show Do?">What Does --first-parent Flag in Git Show Do?</a></h1>
+    </header>
 
-            <aside id="featured" class="body">
-                <article>
-                    <h1 class="entry-title"><a href="/what-does-first-parent-flag-in-git-show-do.html">What Does --first-parent Flag in Git Show Do?</a></h1>
+    <div class="entry-content">
 <footer class="post-info">
         <abbr class="published" title="2020-10-30T10:30:00+08:00">
                 Published: Fri 30 October 2020
@@ -28,7 +34,7 @@
         </address>
 <p>In <a href="/category/article.html">Article</a>.</p>
 <p>tags: <a href="/tag/git.html">git</a> <a href="/tag/log.html">log</a> <a href="/tag/first-parent.html">first-parent</a> <a href="/tag/merge-commit.html">merge-commit</a> </p>
-</footer><!-- /.post-info --><h2>Introduction</h2>
+</footer><!-- /.post-info -->      <h2>Introduction</h2>
 <p><a href="https://git-scm.com/docs/git-show"><code>git show</code></a> is a command-line tool that allows us to quickly glance through the details of a specific commit, in particular the changes in that commit.</p>
 <h2>A Simple Repository</h2>
 <p>To ease our explanation, let's create a simple repository. </p>
@@ -134,8 +140,11 @@ A       notification.py
 <p><code>git show</code> is a tool that allows us to quickly get the details of a particular commit, especially the changes introduced in that commit against its parent. </p>
 <p>However, with the merge commit, <code>git show</code> will just report the set of changes against all the parents, which is usually not our intention. To rectify the behavior, we can simply use the <code>--first-parent</code> flag to instruct <code>git show</code> to display the changes by comparing against the first parent only.</p>
 <h2>References:</h2>
-<p>https://stackoverflow.com/a/40986893/9897617</p>                </article>
-            </aside><!-- /#featured -->
+<p>https://stackoverflow.com/a/40986893/9897617</p>
+    </div><!-- /.entry-content -->
+
+  </article>
+</section>
         <section id="extras" class="body">
                 <div class="social">
                         <h2>social</h2>

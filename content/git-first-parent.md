@@ -92,7 +92,7 @@ To understand why, we'll need to know that when we say `git show` is comparing t
 
 If we put it in a Venn diagram, it will look something like this:  
 
-<div style="text-align:center"><img src="images/git-first-parent/git-first-parent-changes-intersection.png"/></div>  
+<div style="text-align:center"><img src="{attach}images/git-first-parent/git-first-parent-changes-intersection.png"/></div>  
 
 If we are comparing the files of the merged commit against the urgent fix commit (`ea58347`), we know that the difference is the addition of the `notification.py` file. However, if we are now comparing the files of the merge commit against the `notification-module` branch (`433068b`), the changes would be the addition of the file `urgent_fix.py`.  
 

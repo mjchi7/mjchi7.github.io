@@ -22,7 +22,7 @@ AUTHOR_FEED_RSS = None
 LINKS = ()
 
 # Social widget
-SOCIAL = (('linkedin', 'www.linkedin.com/in/chin-ming-jun'),)
+SOCIAL = (('linkedin', 'https://www.linkedin.com/in/chin-ming-jun'),)
 
 DEFAULT_PAGINATION = 10
 
