@@ -18,6 +18,8 @@ TRANSLATION_FEED_ATOM = None
 AUTHOR_FEED_ATOM = None
 AUTHOR_FEED_RSS = None
 
+THEME = 'attila'
+
 # Blogroll
 LINKS = ()
 
@@ -30,3 +32,14 @@ DEFAULT_PAGINATION = 10
 #RELATIVE_URLS = True
 
 OUTPUT_PATH = 'docs'
+
+# Alita theme
+AUTHORS_BIO = {
+  "chin ming jun": {
+    "name": "Chin Ming Jun",
+    "website": "https://mjchi7.github.io",
+    "image": "https://iupac.org/wp-content/uploads/2018/05/default-avatar.png",
+    "location": "Asia/Kuala_Lumpur",
+    "bio": "Python, Java, JS and some frameworks, mainly for web development. Recently dabbling in Docker, Jenkins, Gitlab CI/CD."
+  }
+}

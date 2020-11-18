@@ -1,11 +1,10 @@
 Title: What Does --first-parent Flag in Git Show Do?
 Date: 2020-10-30 10:30
 Category: Article
+Categories: git
 Tags: git, log, first-parent, merge-commit
 Authors: Chin Ming Jun
-Summary: Git log for merge commits and the meaning of first-parent
 
-## Introduction
 [`git show`](https://git-scm.com/docs/git-show) is a command-line tool that allows us to quickly glance through the details of a specific commit, in particular the changes in that commit.
 
 ## A Simple Repository
