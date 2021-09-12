@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Website of Jane Doe</title>
+    <link>https://example.com/posts/</link>
+    <description>Recent content in Posts on Website of Jane Doe</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 11 Sep 2021 17:33:20 +0800</lastBuildDate><atom:link href="https://example.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Istio: Sporadic 503 Error</title>
+      <link>https://example.com/posts/istio-sporadic-503-upstream-termination/</link>
+      <pubDate>Sat, 11 Sep 2021 17:33:20 +0800</pubDate>
+      
+      <guid>https://example.com/posts/istio-sporadic-503-upstream-termination/</guid>
+      <description>Random 503 Errors Using Istio service mesh in production, I&amp;rsquo;ve often come across error logs that reports an observation of 503 errors with the response flags &amp;ldquo;UC&amp;rdquo;:</description>
+    </item>
+    
+    <item>
+      <title>Hello World</title>
+      <link>https://example.com/posts/hello-world/</link>
+      <pubDate>Tue, 07 Sep 2021 17:33:20 +0800</pubDate>
+      
+      <guid>https://example.com/posts/hello-world/</guid>
+      <description>Hello World This is an sample just to see the rendered code</description>
+    </item>
+    
+  </channel>
+</rss>
