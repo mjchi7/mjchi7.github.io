@@ -1,7 +1,7 @@
 baseURL = "https://example.com"
 languageCode = "en"
 DefaultContentLanguage = "en"
-title = "Website of Jane Doe"
+title = "Website of Chin Ming Jun"
 theme = "anatole"
 summarylength = 10
 enableEmoji = true
@@ -34,7 +34,7 @@ author = "Chin Ming Jun"
 description = "Thoughts and Deep Dives"
 copyright = "2021-{{ YEAR }}"
 doNotLoadAnimations = true
-contentRatio = 0.8
+contentRatio = 0.7
 fullPostContent = true
 readMore = true
 
