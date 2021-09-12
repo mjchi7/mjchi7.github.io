@@ -23,7 +23,7 @@ Before we look further into the error, it's vital to have a firm grasp on the te
 **To put it simply, the request caller is the "downstream" and the request processor is the "upstream".** 
 The confusion arises when the same component can be either an "upstream" or "downstream", depending on the perspective. Let's say we have a simple service mesh with a single Spring boot webapp as our microservice. Figuratively, it would look like:
 
-![simple service mesh](../images/istio-sporadic-503-upstream-termination/simple-service-mesh.drawio.png)  
+![simple service mesh](images/istio-sporadic-503-upstream-termination/simple-service-mesh.drawio.png)  
 *Figure 1: A simple service mesh with a single workload "server"*
 
 From the layout, we can see that there are 3 distinct connections: 
@@ -90,19 +90,19 @@ The result of the experiment is enough to validate the hypothesis. However, I am
 
 Firstly, we select one of the error log and obtain the value of `x-request-id`. Then, we can apply the display filter `http contains <x-request-id>` on Wireshark.  
 For instance, let's inspect the packets for request with `x-request-id: b0a11b12-45b0-4c87-949b-a54b403d8626`:
-![wireshark-filter-by-x-request-id](../images/istio-sporadic-503-upstream-termination/wireshark-http-contains-x-request-id.PNG)  
+![wireshark-filter-by-x-request-id](images/istio-sporadic-503-upstream-termination/wireshark-http-contains-x-request-id.PNG)  
 *Figure 2: Applying wireshark display filter*
 
 From the figure, we are seeing 2 requests with the same `x-request-id`. It's because Istio by default has a retry policy of 2 attemps. For now we'll just put aside the default retry policy, and we'll revisit it in the subsequent section. 
 Now, right click on the first match and select "Follow" -> "Follow TCP Stream". Then we'll be presented with a sequence of packets that are of the TCP stream that consists this request:
-![wireshark-follow-tcp-stream](../images/istio-sporadic-503-upstream-termination/wireshark-follow-tcp-stream-503.PNG)  
+![wireshark-follow-tcp-stream](images/istio-sporadic-503-upstream-termination/wireshark-follow-tcp-stream-503.PNG)  
 *Figure 3: Following TCP stream*  
 
 **One thing to note here is that since the sidecar and webapp is communicating on localhost loop, that's why we'll see that the source and destination IP are the same - 127.0.0.1.** Hence, we would need to identify the direction of the packet using the source and destination port.  
 From the TCP stream, we can see that right before the upstream (port 8080) send the RST to downstream (port 43784), the downstream has actually sent a request `GET /io-bound/50 HTTP/1.1` to the upstream. **Since the downstream receive a RST packet from the upstream before it get the HTTP response, it will consider this as an error and it's caused by "upstream terminating connection" before the response is received.**
 
 Now, because of the default retry policy, the `istio-proxy` will attempt the request again through a new TCP connection. If we follow the TCP stream of the 2nd matched packet, we would get the following stream:
-![wireshark-2nd-attempt](../images/istio-sporadic-503-upstream-termination/wireshark-2nd-attempt.PNG)  
+![wireshark-2nd-attempt](images/istio-sporadic-503-upstream-termination/wireshark-2nd-attempt.PNG)  
 *Figure 4: TCP Stream of the 2nd attempt.*  
 As we can see, `istio-proxy` is attempting the request with the same `x-request-id` again. Except, this time it succeeded in getting a response before the upstream terminates the connection through the RST packet. The stream also continues to serve another HTTP request before it gracefully expire the TCP session using the FIN packet.
 
