@@ -4,3 +4,4 @@ tasks:
   build:
     cmd: |
       hugo -d docs/
+      cp -r images docs/images
