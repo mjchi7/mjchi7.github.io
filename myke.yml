@@ -9,3 +9,7 @@ tasks:
       myke clean
       hugo -d docs/
       cp -r images docs/images
+  
+  serve:
+    cmd: |
+      hugo serve
