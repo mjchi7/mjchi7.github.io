@@ -1,7 +1,11 @@
 project: blog
 
 tasks:
+  clean:
+    cmd: |
+      rm -rf docs/
   build:
     cmd: |
+      myke clean
       hugo -d docs/
       cp -r images docs/images
