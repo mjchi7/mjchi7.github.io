@@ -13,16 +13,9 @@
       <pubDate>Sat, 11 Sep 2021 17:33:20 +0800</pubDate>
       
       <guid>https://example.com/posts/istio-sporadic-503-upstream-termination/</guid>
-      <description>Random 503 Errors Using Istio service mesh in production, I&amp;rsquo;ve often come across error logs that reports an observation of 503 errors with the response flags &amp;ldquo;UC&amp;rdquo;:</description>
-    </item>
-    
-    <item>
-      <title>Hello World</title>
-      <link>https://example.com/posts/hello-world/</link>
-      <pubDate>Tue, 07 Sep 2021 17:33:20 +0800</pubDate>
       
-      <guid>https://example.com/posts/hello-world/</guid>
-      <description>Hello World This is an sample just to see the rendered code</description>
+        <description>Random 503 Errors Using Istio service mesh in production, I&amp;rsquo;ve often come across error logs from the istio-proxy sidecar that reports an observation of 503 errors with the response flags &amp;ldquo;UC&amp;rdquo;:</description>
+      
     </item>
     
   </channel>

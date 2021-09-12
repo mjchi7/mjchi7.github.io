@@ -1,0 +1,6 @@
+project: blog
+
+tasks:
+  build:
+    cmd: |
+      hugo -d docs/
