@@ -1,0 +1,1 @@
+[ ] automate `myke build` with github action on every master push
