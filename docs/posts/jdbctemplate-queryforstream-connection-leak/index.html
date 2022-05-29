@@ -7,7 +7,7 @@
   <title>
     Chin Ming Jun
       |
-      Website of Chin Ming Jun
+      Jdbctemplate `queryForStream` Connection Leak
 
 
     
@@ -56,12 +56,9 @@
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
 
-  <link rel="canonical" href="/" />
+  <link rel="canonical" href="/posts/jdbctemplate-queryforstream-connection-leak/" />
 
   
-  <link rel="alternate" type="application/rss+xml" href="/index.xml" title="Website of Chin Ming Jun" />
-
-
   
   
   
@@ -84,24 +81,81 @@
 
   
   <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Website of Chin Ming Jun"/>
-<meta name="twitter:description" content="Thoughts and Deep Dives"/>
+<meta name="twitter:title" content="Jdbctemplate `queryForStream` Connection Leak"/>
+<meta name="twitter:description" content="Connection Leak in queryForStream tldr; The method queryForStream provided by JDBCTemplate produce a Stream with database connection as sources and hence has to be closed explicitly."/>
 
 
 
   
 
 
+  
+  
+  
   
   <script type="application/ld+json">
     {
-      "@context": "http://schema.org",
-      "@type": "WebSite",
-      "name": "Website of Chin Ming Jun",
-      "url": "https:\/\/example.com",
-      "description": "Thoughts and Deep Dives",
-      "thumbnailUrl": "https:\/\/example.com",
-      "license": "2021-{{ YEAR }}"
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "articleSection": "posts",
+        "name": "Jdbctemplate `queryForStream` Connection Leak",
+        "headline": "Jdbctemplate `queryForStream` Connection Leak",
+        "alternativeHeadline": "",
+        "description": "
+      
+        Connection Leak in queryForStream tldr; The method queryForStream provided by JDBCTemplate produce a Stream with database connection as sources and hence has to be closed explicitly.
+
+
+      
+
+
+    ",
+        "inLanguage": "en",
+        "isFamilyFriendly": "true",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/example.com\/posts\/jdbctemplate-queryforstream-connection-leak\/"
+        },
+        "author" : {
+            "@type": "Person",
+            "name": "Chin Ming Jun"
+        },
+        "creator" : {
+            "@type": "Person",
+            "name": "Chin Ming Jun"
+        },
+        "accountablePerson" : {
+            "@type": "Person",
+            "name": "Chin Ming Jun"
+        },
+        "copyrightHolder" : {
+            "@type": "Person",
+            "name": "Chin Ming Jun"
+        },
+        "copyrightYear" : "2022",
+        "dateCreated": "2022-05-29T12:17:13.00Z",
+        "datePublished": "2022-05-29T12:17:13.00Z",
+        "dateModified": "2022-05-29T12:17:13.00Z",
+        "publisher":{
+            "@type":"Organization",
+            "name": "Chin Ming Jun",
+            "url": "https://example.com",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https:\/\/example.comfavicon-32x32.png",
+                "width":"32",
+                "height":"32"
+            }
+        },
+        "image": 
+      [
+      ]
+
+    ,
+        "url" : "https:\/\/example.com\/posts\/jdbctemplate-queryforstream-connection-leak\/",
+        "wordCount" : "583",
+        "genre" : [ ],
+        "keywords" : [ ]
     }
   </script>
 
@@ -149,32 +203,12 @@
 
     "
   >
-    <div class="post-title post-content">
-      
-    </div>
-
-    
-  </div>
-
-  
-
-  
-  
-    <div
-      class="post 
-        .
-
-      "
-    >
+    <div class="post-content">
       
       <div class="post-title">
-        <h3><a href="/posts/jdbctemplate-queryforstream-connection-leak/">Jdbctemplate `queryForStream` Connection Leak</a></h3>
-      </div>
-      <div class="post-content">
-        <div class="p_part">
-          <p>
-            
-              <h1 id="connection-leak-in-queryforstream">Connection Leak in <code>queryForStream</code></h1>
+        <h1>Jdbctemplate `queryForStream` Connection Leak</h1>
+        
+      </div><h1 id="connection-leak-in-queryforstream">Connection Leak in <code>queryForStream</code></h1>
 <h2 id="tldr">tldr;</h2>
 <p>The method <code>queryForStream</code> provided by <code>JDBCTemplate</code> produce a <code>Stream</code> with database connection as sources and hence has to be closed explicitly. <strong>Failure to do so would cause connection leak.</strong></p>
 <h2 id="stream-with-resources">Stream with Resources</h2>
@@ -276,218 +310,16 @@ the result Stream, containing mapped objects, needing to be closed once fully pr
 </code></pre></div><p>When both of the test cases passed, we can be sure our</p>
 <h2 id="summary">Summary</h2>
 <p>In this article, we’ve seen how Java <code>Stream</code> can be backed by system resources. Then, we’ve looked at <code>JdbcTemplate.queryForStream</code> as an example of method that produce <code>Stream</code> that is backed by system resources. Finally, we’ve devised a simple reproducible experiment that prove our initial hypothesis.</p>
+</div>
+    <div class="post-footer">
+      <div class="info">
+        
 
-
-
-            
-          </p>
-          <a href="/posts/jdbctemplate-queryforstream-connection-leak/" class="read_more">Read more</a></div>
-      </div>
-
-      
-      <div class="post-footer">
-        <div class="meta">
-          <div class="info">
-            <em class="fas fa-calendar-day"></em>
-            <span class="date"
-              >
-                Sun, May 29, 2022
-
-
-              </span
-            >
-            
-
-            
-          </div>
-        </div>
+        
       </div>
     </div>
 
-  
-    <div
-      class="post 
-        .
-
-      "
-    >
-      
-      <div class="post-title">
-        <h3><a href="/posts/istio-sporadic-503-upstream-termination/">Istio: Sporadic 503 Error</a></h3>
-      </div>
-      <div class="post-content">
-        <div class="p_part">
-          <p>
-            
-              <h2 id="random-503-errors">Random 503 Errors</h2>
-<p>Using Istio service mesh in production, I&rsquo;ve often come across error logs from the <code>istio-proxy</code> sidecar that reports an observation of 503 errors with the response flags &ldquo;UC&rdquo;:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span><span class="nt">&#34;path&#34;</span><span class="p">:</span><span class="s2">&#34;/server/io-bound/50&#34;</span><span class="p">,</span><span class="nt">&#34;protocol&#34;</span><span class="p">:</span><span class="s2">&#34;HTTP/1.1&#34;</span><span class="p">,</span><span class="nt">&#34;request_id&#34;</span><span class="p">:</span><span class="s2">&#34;110677bb-7cc8-495c-8872-784e59ba8904&#34;</span><span class="p">,</span><span class="nt">&#34;method&#34;</span><span class="p">:</span><span class="s2">&#34;GET&#34;</span><span class="p">,</span><span class="nt">&#34;duration&#34;</span><span class="p">:</span><span class="s2">&#34;28&#34;</span><span class="p">,</span><span class="nt">&#34;response_code&#34;</span><span class="p">:</span><span class="s2">&#34;503&#34;</span><span class="p">,</span><span class="nt">&#34;upstream_host&#34;</span><span class="p">:</span><span class="s2">&#34;127.0.0.1:8080&#34;</span><span class="p">,</span><span class="nt">&#34;bytes_sent&#34;</span><span class="p">:</span><span class="s2">&#34;95&#34;</span><span class="p">,</span><span class="nt">&#34;response_flags&#34;</span><span class="p">:</span><span class="s2">&#34;UC&#34;</span><span class="p">,</span><span class="nt">&#34;route_name&#34;</span><span class="p">:</span><span class="s2">&#34;default&#34;</span><span class="p">}</span>
-</code></pre></div><p>From the envoy documentation, the response flag &ldquo;UC&rdquo; means:</p>
-<blockquote>
-<p><em>UC</em>: Upstream connection termination in addition to 503 response code.</p>
-</blockquote>
-<p><strong>Furthermore, the errors are very rare</strong>, occuring once every 30 minutes under constant 100+ requests per second. The errors spikes to 5 to 10 occurences under high load of 700+ requests per second.</p>
-<p><strong>What&rsquo;s more puzzling is the fact that while the proxy reports a 503 response code, none of the client has actually observe said error from their perspectives.</strong> Though it has not affect us in any way in terms of performance, I am very intrigued and generally not comfortable with brushing off these errors as it might cause a big problem down the road. Therefore, I&rsquo;ve read up great discussion and blogposts online to make sense out of it.<br>
-In this article, I&rsquo;ll share what I have find out as well as some of the findings I have.</p>
-<h2 id="upstream-downstream">Upstream, Downstream?</h2>
-<p>Before we look further into the error, it&rsquo;s vital to have a firm grasp on the term &ldquo;upstream&rdquo; and &ldquo;downstream&rdquo; in the context of network connection. Without this understanding, it&rsquo;s very difficult to figure out who is causing the error as the error message and documentation are using these terms a lot.
-<strong>To put it simply, the request caller is the &ldquo;downstream&rdquo; and the request processor is the &ldquo;upstream&rdquo;.</strong> 
-The confusion arises when the same component can be either an &ldquo;upstream&rdquo; or &ldquo;downstream&rdquo;, depending on the perspective. Let&rsquo;s say we have a simple service mesh with a single Spring boot webapp as our microservice. Figuratively, it would look like:</p>
-<p><img src="/images/istio-sporadic-503-upstream-termination/simple-service-mesh.drawio.png" alt="simple service mesh"><br>
-<em>Figure 1: A simple service mesh with a single workload &ldquo;server&rdquo;</em></p>
-<p>From the layout, we can see that there are 3 distinct connections:</p>
-<ol>
-<li>between external user to istio ingressgateway</li>
-<li>between istio ingressgateway to istio-proxy</li>
-<li>between istio-proxy to Spring Boot container</li>
-</ol>
-<p>Using the definition earlier, we can easily make out the upstream and downstream component on each connection:</p>
-<ol>
-<li>In this connection, external user is the downstream as it&rsquo;s making the request. Whereas istio ingressgateway is the upstream as it&rsquo;s receiving/serving the request made.</li>
-<li>In this connection, istio ingressgateway is now the downstream. This is because it&rsquo;s actually making a request. Similarly, the istio-proxy is the usptream as it is the receiving side of request.</li>
-<li>In this connection, istio-proxy is now the downstream as it is the party that initiate the request. Spring boot container on the other hand is the upstream as it is the one serving the request.</li>
-</ol>
-<h2 id="upstream-connection-termination">&ldquo;Upstream Connection Termination&rdquo;</h2>
-<p>By getting a firm grasp of the up and downstream terminology, we can now examine the error message in details. If we look again at the meaning of the &ldquo;UC&rdquo; response flag:</p>
-<blockquote>
-<p><em>UC</em>: Upstream connection termination in addition to 503 response code.</p>
-</blockquote>
-<p>It says that the &ldquo;upstream&rdquo; is terminating the connection. Now we know that the log is obtained from the sidecar <code>istio-proxy</code>, hence <strong>the upstream here is referring to the microservice it is serving.</strong> Concretely, it is saying that our microservice is terminating the connection.</p>
-<h2 id="hypothesis-http11-pipelining-is-the-root-cause">Hypothesis: HTTP/1.1 Pipelining is The Root Cause</h2>
-<p><strong>One possible explanation for this occurence is due to HTTP/1.1 pipelining mechanism.</strong> See, in HTTP/1.1, client can pipeline multiple requests onto the same TCP connection. What this achieve is the reduction in the amount of TCP session creation which would be resource intensive. Exactly how it works is out of the scope of this article but users are encouraged to look up the plentiful resources online that explains this mechanism.</p>
-<p><strong>The idea behind this hypothesis is that there&rsquo;s a possibility that right after the downstream piped a new request, the server is terminating the connection at the same time due to keep alive timeout.</strong> In other words, the request has been made by the downstream on a terminated TCP connection.</p>
-<p>Frankly speaking, I&rsquo;ve not come up with this hypothesis myself. In fact, I&rsquo;ve gotten the idea from this <a href="https://medium.com/expedia-group-tech/all-about-istio-proxy-5xx-issues-e0221b29e692">blog post</a> here. The contribution of this article is to convince you (and myself) that it is indeed the case, through a simple empirical experiment.</p>
-<h2 id="experiment">Experiment</h2>
-<p>To verify the hypothesis, we can devise and conduct a simple experiment.</p>
-<p>Firstly, we refine our hypothesis to:</p>
-<blockquote>
-<p>The shorter the TCP connection is allowed to keep alived, the more 503 errors will be observed</p>
-</blockquote>
-<p><strong>That&rsquo;s because when we reduce the amount of time the TCP connection is allowed to keep alive, we can increase the chance of connection termination by upstream.</strong> As a result, we should observe more 503 errors. Of course, the reverse is true as well.<br>
-For Spring Boot webapp that uses embedded Tomcat, we can configure this timeout using the properties <code>server.tomcat.keep-alive-timeout</code>.</p>
-<h3 id="control-variable">Control Variable</h3>
-<p>In this experiment, the control variable is the TCP keep-alive timeout value. Concretely, it&rsquo;s how long each TCP connection is allowed to keep alive, in milliseconds.</p>
-<h3 id="experiment-set-up">Experiment Set Up</h3>
-<p>The set up consists of the following components:</p>
-<ul>
-<li>A <a href="https://k3d.io/v4.4.8/"><code>k3d</code></a> cluster</li>
-<li>Istio service mesh within the cluster</li>
-<li>A Spring Boot webapp as a microservice</li>
-<li>A Envoyfilter applied onto the cluster to enable access log for request-response pair that has 5XX status code.</li>
-<li><a href="https://github.com/eldadru/ksniff"><code>ksniff</code></a> - A kubernetes plugin to sniff packets on a container and pipe to Wireshark for analyzing.</li>
-<li><a href="https://github.com/rakyll/hey"><code>hey</code></a> - A program to simulate client requests</li>
-</ul>
-<p>Firstly, we&rsquo;ll create the <code>k3d</code> cluster and deploy Istio onto the cluster. Then, we&rsquo;ll deploy our Spring Boot webapp and have the istio-proxy sidecar injected. Next, we&rsquo;ll run the <code>ksniff</code> to start capturing packets on the <code>istio-proxy</code> sidecar that runs alongside Spring Boot Webapp.
-Finally, we simulate the downstream requests using the <code>hey</code> program.</p>
-<h3 id="results">Results</h3>
-<table>
-<thead>
-<tr>
-<th>Number of Concurrent Requests</th>
-<th>Duration (s)</th>
-<th>Keep Alive Timeout (ms)</th>
-<th>503 Observed</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>300</td>
-<td>10</td>
-<td>5</td>
-<td>76</td>
-</tr>
-<tr>
-<td>300</td>
-<td>10</td>
-<td>100</td>
-<td>51</td>
-</tr>
-<tr>
-<td>300</td>
-<td>10</td>
-<td>1000</td>
-<td>0</td>
-</tr>
-</tbody>
-</table>
-<p><em>Table 1: The number of 503 errors observed against the keep alive timeout (ms)</em></p>
-<p><strong>As we can see, as we increase the longevity of each TCP keep alive timeout, we observe fewer 503 throughout the 10 seconds experiment duration.</strong> In the experiment, when we set the keep alive timeout to 1 second (1000 ms), we observe no 503 errors. This is of course due to the probabilistic nature of the occurence, which might shows 503 errors when the experiment is allowed to run longer.</p>
-<h3 id="inspecting-a-503-tcp-stream">Inspecting a 503 TCP Stream</h3>
-<p>The result of the experiment is enough to validate the hypothesis. However, I am still not satisfied. Particularly, I am interested in what&rsquo;s happening at the TCP level when this error happens. To do that, <strong>we use <code>ksniff</code> to capture all the network packets during the experiment.</strong> Then, we can see the exact error on the network packets using Wireshark in order to solidify our understanding about the theory.</p>
-<p>Firstly, we select one of the error log and obtain the value of <code>x-request-id</code>. Then, we can apply the display filter <code>http contains &lt;x-request-id&gt;</code> on Wireshark.<br>
-For instance, let&rsquo;s inspect the packets for request with <code>x-request-id: b0a11b12-45b0-4c87-949b-a54b403d8626</code>:
-<img src="/images/istio-sporadic-503-upstream-termination/wireshark-http-contains-x-request-id.PNG" alt="wireshark-filter-by-x-request-id"><br>
-<em>Figure 2: Applying wireshark display filter</em></p>
-<p>From the figure, we are seeing 2 requests with the same <code>x-request-id</code>. It&rsquo;s because Istio by default has a retry policy of 2 attemps. For now we&rsquo;ll just put aside the default retry policy, and we&rsquo;ll revisit it in the subsequent section. 
-Now, right click on the first match and select &ldquo;Follow&rdquo; -&gt; &ldquo;Follow TCP Stream&rdquo;. Then we&rsquo;ll be presented with a sequence of packets that are of the TCP stream that consists this request:
-<img src="/images/istio-sporadic-503-upstream-termination/wireshark-follow-tcp-stream-503.PNG" alt="wireshark-follow-tcp-stream"><br>
-<em>Figure 3: Following TCP stream</em></p>
-<p><strong>One thing to note here is that since the sidecar and webapp is communicating on localhost loop, that&rsquo;s why we&rsquo;ll see that the source and destination IP are the same - 127.0.0.1.</strong> Hence, we would need to identify the direction of the packet using the source and destination port.<br>
-From the TCP stream, we can see that right before the upstream (port 8080) send the RST to downstream (port 43784), the downstream has actually sent a request <code>GET /io-bound/50 HTTP/1.1</code> to the upstream. <strong>Since the downstream receive a RST packet from the upstream before it get the HTTP response, it will consider this as an error and it&rsquo;s caused by &ldquo;upstream terminating connection&rdquo; before the response is received.</strong></p>
-<p>Now, because of the default retry policy, the <code>istio-proxy</code> will attempt the request again through a new TCP connection. If we follow the TCP stream of the 2nd matched packet, we would get the following stream:
-<img src="/images/istio-sporadic-503-upstream-termination/wireshark-2nd-attempt.PNG" alt="wireshark-2nd-attempt"><br>
-<em>Figure 4: TCP Stream of the 2nd attempt.</em><br>
-As we can see, <code>istio-proxy</code> is attempting the request with the same <code>x-request-id</code> again. Except, this time it succeeded in getting a response before the upstream terminates the connection through the RST packet. The stream also continues to serve another HTTP request before it gracefully expire the TCP session using the FIN packet.</p>
-<h2 id="but-the-client-never-observes-503-errors">But The Client Never Observes 503 Errors?</h2>
-<p>Although we see <code>istio-proxy</code> reporting 503 errors, there&rsquo;s no such errors reported from the client perspective. In other words, the 503 errors didn&rsquo;t propagate to the clients. To explain this behavior, we&rsquo;ll need to look into the default retry policy on Istio virtual service.</p>
-<h3 id="istio-retry-default">Istio Retry Default</h3>
-<p>From the <a href="https://istio.io/latest/docs/concepts/traffic-management/#retries">Istio documentation</a>, we can see that <strong>Istio by default configures a 2 retry attempts for all the virtual services</strong>. In other words, when the <code>istio-proxy</code> fails to relay the request to our webapp, it will retry for at least 2 times before it conclude the request has failed with 503 errors.<br>
-<strong>Additionally, the chance the 503 errors will propagate to the client is extremely small, as it would be highly unlikely that 3 consecutive attemps is hit by the same issue.</strong> Therefore, even with the large amount of 503 errors reported by proxy, there&rsquo;s no 503 observed from the perspective of client.</p>
-<p>In fact, this retry behavior on upstream terminating connection is clearly defined in the <a href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec8.html">HTTP/1.1 specification</a>. In the section 8.2.4, it says that &ldquo;the client should retry the request on server prematurely closing the TCP session&rdquo;.</p>
-<h3 id="disabling-default-retry---proving-the-point">Disabling Default Retry - Proving The Point</h3>
-<p>Of course, we can disable the default retry explicitly on <code>VirtualService</code> to prove the point. Concretely, for the route to our webapp, we can set the retry attempt to 0:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml">- <span class="nt">match</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span>- <span class="nt">uri</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span><span class="nt">prefix</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;/server/&#34;</span><span class="w">
-</span><span class="w">    </span><span class="nt">rewrite</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span><span class="nt">uri</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;/&#34;</span><span class="w">
-</span><span class="w">    </span><span class="nt">route</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span>- <span class="nt">destination</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span><span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="l">synchronous.default.svc.cluster.local</span><span class="w">
-</span><span class="w">    </span><span class="nt">retries</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span><span class="nt">attempts</span><span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="w">
-</span></code></pre></div><p>With this configuration, rerunning our experiment with keep-alive timeout set to 5 milliseconds, we would start seeing 503 from the perspective of client.</p>
-<h2 id="conclusion">Conclusion</h2>
-<p>Although we don&rsquo;t see much problem having these occasionally 503 errors observed in the log, we can alleviate the issue by increasing the keep-alive timeout to a higher value to reduce the probability the upstream is terminating a connection after a new request is piped on the same session.<br>
-Furthermore, we could also switch to HTTP/2 protocol to alleviate this issue, as the connection is persistent.</p>
-<h2 id="references">References</h2>
-<ol>
-<li><a href="https://github.com/istio/istio/issues/13205">https://github.com/istio/istio/issues/13205</a></li>
-<li><a href="https://discuss.istio.io/t/upstream-connect-error-or-disconnect-reset-before-headers-reset-reason-connection-termination/4434">https://discuss.istio.io/t/upstream-connect-error-or-disconnect-reset-before-headers-reset-reason-connection-termination/4434</a></li>
-<li><a href="https://medium.com/expedia-group-tech/all-about-istio-proxy-5xx-issues-e0221b29e692">https://medium.com/expedia-group-tech/all-about-istio-proxy-5xx-issues-e0221b29e692</a></li>
-</ol>
-
-
-
-            
-          </p>
-          <a href="/posts/istio-sporadic-503-upstream-termination/" class="read_more">Read more</a></div>
-      </div>
-
-      
-      <div class="post-footer">
-        <div class="meta">
-          <div class="info">
-            <em class="fas fa-calendar-day"></em>
-            <span class="date"
-              >
-                Sat, Sep 11, 2021
-
-
-              </span
-            >
-            
-
-            
-          </div>
-        </div>
-      </div>
-    </div>
-
-  
-  <div class="pagination">
     
-
   </div>
 
 
