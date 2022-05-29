@@ -1,21 +1,17 @@
 ---
-title: "Jdbctemplate Queryforstream Connection Leak"
+title: "Jdbctemplate `queryForStream` Connection Leak"
 date: 2022-05-29T12:17:13+08:00
-draft: true
+draft: false
+subtitle: "Java Stream and Resource Leak"
 ---
-# Connection Leak in queryForStream
-
+# Connection Leak in `queryForStream`
 ## tldr;
 
-The method `queryForStream` provided by `JDBCTemplate` produce a `Stream` with database connection as sources and hence has to be closed explicitly.
-
-**Failure to do so would cause connection leak.**
+The method `queryForStream` provided by `JDBCTemplate` produce a `Stream` with database connection as sources and hence has to be closed explicitly. **Failure to do so would cause connection leak.**
 
 ## Stream with Resources
 
-The Java `Stream` API can be backed by sources with system resources or without. For the former, we’ll need to close the `Stream` explicitly once we are done in order to release the resources. 
-
-The `JdbcTemplate.queryForStream` is one such example of method that produces `Stream` that are backed by system resources (database connection in this case).
+The Java `Stream` API can be backed by system resources or without. For the former, we’ll need to close the `Stream` explicitly once we are done in order to release the resources. The `JdbcTemplate.queryForStream` is one such example of method that produces `Stream` that are backed by system resources (database connection in this case).
 
 ### `JdbcTemplate.queryForStream` Documentation
 
@@ -88,9 +84,7 @@ public User getWithClose() {
 
 ### The Tests
 
-With that 2 methods, we can write test to verify our initial hypothesis. 
-
-First, we set the maximum number of connection to 5 for our `DataSource`. 
+With that 2 methods, we can write test to verify our initial hypothesis.  First, we set the maximum number of connection to 5 for our `DataSource`. 
 
 ```java
 public DataSource getDataSource() {
@@ -149,7 +143,5 @@ When both of the test cases passed, we can be sure our
 
 ## Summary
 
-In this article, we’ve seen how Java `Stream` can be backed by system resources. Then, we’ve looked at `JdbcTemplate.queryForStream` as an example of method that produce `Stream` that is backed by system resources. 
-
-Finally, we’ve devised a simple reproducible experiment that prove our initial hypothesis.
+In this article, we’ve seen how Java `Stream` can be backed by system resources. Then, we’ve looked at `JdbcTemplate.queryForStream` as an example of method that produce `Stream` that is backed by system resources. Finally, we’ve devised a simple reproducible experiment that prove our initial hypothesis.
 
