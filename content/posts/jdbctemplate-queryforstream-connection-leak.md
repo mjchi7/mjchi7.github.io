@@ -139,7 +139,7 @@ public void testGetWithClose() {
 }
 ```
 
-When both of the test cases passed, we can be sure our 
+When both of the test cases passed, we can be sure our hypothesis that **when we use the `queryForStream` method, we must close the stream manually to prevent connection leaks.**
 
 ## Summary
 
