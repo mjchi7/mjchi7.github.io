@@ -66,8 +66,8 @@ The `ForkJoinPool` common pool thread uses the `AppClassLoader`, a.k.a. system c
 
 Based on these observations, two prominent questions arise:
 
-1. Why are two different class loaders being used?
-2. Why can't the `AppClassLoader` see the class in the dependent JAR file?
+1. Why are two different [class loaders](https://www.reddit.com/r/java/comments/1f79jhr/java_classloaders_illustrated/) being used?
+2. Why can't the [`AppClassLoader`](https://stackoverflow.com/questions/34650568/difference-between-appclassloader-and-systemclassloader) see the class in the dependent JAR file?
 
 To answer these questions, we first need to understand the Spring Boot nested JAR structure.
 
