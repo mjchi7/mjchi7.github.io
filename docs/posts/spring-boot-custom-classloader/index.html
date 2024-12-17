@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html
+  dir="ltr"
+  lang="en"
+  data-theme=""
+><head>
+  <title>
+    Chin Ming Jun
+      |
+      Spring Boot Nested JAR: ForkJoinPool Common Pool&#39;s Lack of Visibility to Dependent Library Classes
+
+
+    
+
+  </title>
+
+  
+  <meta charset="utf-8" /><meta name="generator" content="Hugo 0.92.2" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta
+    name="description"
+    content="
+      Thoughts and Deep Dives
+
+
+    "
+  />
+  
+  
+  
+  <link
+    rel="stylesheet"
+    href="/css/main.min.4e6cc5ab56240cbc65648d630c38f8a5ffe55999f9fdcf448cd7fa63564f4fd0.css"
+    integrity="sha256-TmzFq1YkDLxlZI1jDDj4pf/lWZn5/c9EjNf6Y1ZPT9A="
+    crossorigin="anonymous"
+    type="text/css"
+  />
+  
+  
+  <link
+    rel="stylesheet"
+    href="/css/markupHighlight.min.8e4c8f0a940b1596fb4c64d28a00a5ceed671fc303cb65178b4947417da9c674.css"
+    integrity="sha256-jkyPCpQLFZb7TGTSigClzu1nH8MDy2UXi0lHQX2pxnQ="
+    crossorigin="anonymous"
+    type="text/css"
+  />
+  
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+    integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+    crossorigin="anonymous"
+  />
+  
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+
+  <link rel="canonical" href="/posts/spring-boot-custom-classloader/" />
+
+  
+  
+  
+  
+  <script
+    type="text/javascript"
+    src="/js/anatole-header.min.2a2cd9614b7d007dfbb75e8da19e3a0fa872ceab53c6d000c00b7a0c89b85bfc.js"
+    integrity="sha256-KizZYUt9AH37t16NoZ46D6hyzqtTxtAAwAt6DIm4W/w="
+    crossorigin="anonymous"
+  ></script>
+
+  
+    
+    
+    <script
+      type="text/javascript"
+      src="/js/anatole-theme-switcher.min.7fd87181cdd7e8413aa64b6867bb32f3a8dc242e684fc7d5bbb9f600dbc2b6eb.js"
+      integrity="sha256-f9hxgc3X6EE6pktoZ7sy86jcJC5oT8fVu7n2ANvCtus="
+      crossorigin="anonymous"
+    ></script>
+
+  
+  <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Spring Boot Nested JAR: ForkJoinPool Common Pool&#39;s Lack of Visibility to Dependent Library Classes"/>
+<meta name="twitter:description" content="Overview In this article, we&rsquo;ll explore the problem of using the ForkJoinPool in a Spring Boot JAR application."/>
+
+
+
+  
+
+
+  
+  
+  
+  
+  <script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "articleSection": "posts",
+        "name": "Spring Boot Nested JAR: ForkJoinPool Common Pool\u0027s Lack of Visibility to Dependent Library Classes",
+        "headline": "Spring Boot Nested JAR: ForkJoinPool Common Pool\u0027s Lack of Visibility to Dependent Library Classes",
+        "alternativeHeadline": "",
+        "description": "
+      
+        Overview In this article, we\u0026rsquo;ll explore the problem of using the ForkJoinPool in a Spring Boot JAR application.
+
+
+      
+
+
+    ",
+        "inLanguage": "en",
+        "isFamilyFriendly": "true",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/example.com\/posts\/spring-boot-custom-classloader\/"
+        },
+        "author" : {
+            "@type": "Person",
+            "name": "Chin Ming Jun"
+        },
+        "creator" : {
+            "@type": "Person",
+            "name": "Chin Ming Jun"
+        },
+        "accountablePerson" : {
+            "@type": "Person",
+            "name": "Chin Ming Jun"
+        },
+        "copyrightHolder" : {
+            "@type": "Person",
+            "name": "Chin Ming Jun"
+        },
+        "copyrightYear" : "2024",
+        "dateCreated": "2024-12-17T10:50:39.00Z",
+        "datePublished": "2024-12-17T10:50:39.00Z",
+        "dateModified": "2024-12-17T10:50:39.00Z",
+        "publisher":{
+            "@type":"Organization",
+            "name": "Chin Ming Jun",
+            "url": "https://example.com",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https:\/\/example.comfavicon-32x32.png",
+                "width":"32",
+                "height":"32"
+            }
+        },
+        "image": 
+      [
+      ]
+
+    ,
+        "url" : "https:\/\/example.com\/posts\/spring-boot-custom-classloader\/",
+        "wordCount" : "935",
+        "genre" : [ ],
+        "keywords" : [ ]
+    }
+  </script>
+
+
+
+</head>
+<body>
+    <header><div
+  class="page-top 
+    .
+
+  "
+>
+  <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+    <span aria-hidden="true"></span>
+    <span aria-hidden="true"></span>
+    <span aria-hidden="true"></span>
+  </a>
+  <nav>
+    <ul class="nav__list" id="navMenu">
+      <div class="nav__links">
+        
+        
+        
+      </div>
+      <li>
+        
+          <a class="theme-switch" title="Switch Theme">
+            <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+          </a>
+
+        
+      </li>
+    </ul>
+  </nav>
+</div>
+</header>
+    <div class="wrapper">
+      <main>
+        <div class="autopagerize_page_element">
+          <div class="content">
+  <div
+    class="post 
+      .
+
+    "
+  >
+    <div class="post-content">
+      
+      <div class="post-title">
+        <h1>Spring Boot Nested JAR: ForkJoinPool Common Pool&#39;s Lack of Visibility to Dependent Library Classes</h1>
+        
+      </div><h2 id="overview">Overview</h2>
+<p>In this article, we&rsquo;ll explore the problem of using the <code>ForkJoinPool</code> in a Spring Boot JAR application. Specifically, <strong>we&rsquo;ll understand why threads in the <code>ForkJoinPool</code> cannot load classes from dependent library JARs, while threads created using <code>ExecutorService</code> don&rsquo;t face the same issue in a Spring Boot JAR application</strong>.</p>
+<p>The root cause lies in the Spring Boot nested JAR structure and the class loaders used. We&rsquo;ll discuss how the <code>ForkJoinPool</code> uses the system class loader, why it lacks visibility into Spring Boot&rsquo;s nested JARs, and how Spring Boot&rsquo;s custom <code>LauncherURLClassLoader</code> helps.</p>
+<p>By the end, we&rsquo;ll also learn why we don&rsquo;t face the same issue with <code>ForkJoinPool</code> when running our Spring Boot application without packaging it as a JAR file (i.e., <code>./mvnw spring-boot:run</code>).</p>
+<h2 id="problem-statement">Problem Statement</h2>
+<p>Let&rsquo;s begin with a simple demonstration. Imagine a Spring Boot application that uses both <code>ForkJoinPool</code> and <code>ExecutorService</code> to load a class dynamically from a dependent library:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nd">@SpringBootApplication</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ClassLoaderDemoApplication</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="n">ClassLoaderDemoApplication</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
+
+        <span class="c1">// ExecutorService Test
+</span><span class="c1"></span>        <span class="n">ExecutorService</span> <span class="n">executorService</span> <span class="o">=</span> <span class="n">Executors</span><span class="o">.</span><span class="na">newFixedThreadPool</span><span class="o">(</span><span class="n">1</span><span class="o">);</span>
+        <span class="n">executorService</span><span class="o">.</span><span class="na">submit</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="o">{</span>
+            <span class="k">try</span> <span class="o">{</span>
+                <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;ExecutorService ClassLoader: &#34;</span> <span class="o">+</span> <span class="n">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">getContextClassLoader</span><span class="o">());</span>
+                <span class="n">Class</span><span class="o">&lt;?&gt;</span> <span class="n">clazz</span> <span class="o">=</span> <span class="n">Class</span><span class="o">.</span><span class="na">forName</span><span class="o">(</span><span class="s">&#34;com.example.dependency.SomeLibraryClass&#34;</span><span class="o">);</span>
+                <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;ExecutorService Loaded: &#34;</span> <span class="o">+</span> <span class="n">clazz</span><span class="o">);</span>
+            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+            <span class="o">}</span>
+        <span class="o">});</span>
+
+        <span class="c1">// ForkJoinPool Common Pool Test
+</span><span class="c1"></span>        <span class="n">ForkJoinPool</span><span class="o">.</span><span class="na">commonPool</span><span class="o">().</span><span class="na">submit</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="o">{</span>
+            <span class="k">try</span> <span class="o">{</span>
+                <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;ForkJoinPool ClassLoader: &#34;</span> <span class="o">+</span> <span class="n">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">getContextClassLoader</span><span class="o">());</span>
+                <span class="n">Class</span><span class="o">&lt;?&gt;</span> <span class="n">clazz</span> <span class="o">=</span> <span class="n">Class</span><span class="o">.</span><span class="na">forName</span><span class="o">(</span><span class="s">&#34;com.example.dependency.SomeLibraryClass&#34;</span><span class="o">);</span>
+                <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;ForkJoinPool Loaded: &#34;</span> <span class="o">+</span> <span class="n">clazz</span><span class="o">);</span>
+            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+            <span class="o">}</span>
+        <span class="o">});</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>The simple class defines a Spring Boot application. On startup, the application first creates an <code>ExecutorService</code> and runs a task asynchronously to dynamically load the <code>com.example.dependency.SomeLibraryClass</code>. Later, it submits the same task to the <code>ForkJoinPool#commonPool</code>.</p>
+<p>Notably, the <code>com.example.dependency.SomeLibraryClass</code> is a class that exists in a dependent library JAR file.</p>
+<p>When we package the application into a JAR file and run it, we get the following output:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">ExecutorService ClassLoader: org.springframework.boot.loader.LaunchedURLClassLoader
+ExecutorService Loaded: class com.example.dependency.SomeLibraryClass
+ForkJoinPool ClassLoader: java.lang.ClassLoader<span class="nv">$AppClassloader</span>
+java.lang.ClassNotFoundException: com.example.dependency.SomeLibraryClass
+</code></pre></div><p>There are a few observations we can make from the output:</p>
+<p>The <code>ExecutorService</code> thread uses the <code>LaunchedURLClassLoader</code> and successfully loads the class.
+The <code>ForkJoinPool</code> common pool thread uses the <code>AppClassLoader</code>, a.k.a. system class loader, and fails to load the class.</p>
+<p>Based on these observations, two prominent questions arise:</p>
+<ol>
+<li>Why are two different <a href="https://www.reddit.com/r/java/comments/1f79jhr/java_classloaders_illustrated/">class loaders</a> being used?</li>
+<li>Why can&rsquo;t the <a href="https://stackoverflow.com/questions/34650568/difference-between-appclassloader-and-systemclassloader"><code>AppClassLoader</code></a> see the class in the dependent JAR file?</li>
+</ol>
+<p>To answer these questions, we first need to understand the Spring Boot nested JAR structure.</p>
+<h2 id="spring-boot-nested-jar-structure">Spring Boot Nested JAR Structure</h2>
+<p>One of the longstanding problems with Java is that there isn&rsquo;t a standard way to load nested JAR files (e.g., when our application is a JAR file that contains additional JAR files for its dependencies).</p>
+<p>Conventionally, many developers choose to package all the classes from all the JAR files into a single uber JAR. However, this approach can lead to filename conflicts and makes it difficult to determine which libraries are included in the application.</p>
+<p><strong>Spring Boot opts for a different approach, known as a <a href="https://docs.spring.io/spring-boot/specification/executable-jar/nested-jars.html">nested JAR structure</a></strong>. Specifically, Spring Boot packages applications into the following layout:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-plain" data-lang="plain">my-app.jar
+ |
+ +-META-INF
+ |  +-MANIFEST.MF
+ +-org
+ |  +-springframework
+ |     +-boot
+ |        +-loader
+ |           +-&lt;spring boot loader classes&gt;
+ +-BOOT-INF
+    +-classes
+    |  +-mycompany
+    |     +-project
+    |        +-YourClasses.class
+    +-lib
+       +-dependency1.jar
+       +-dependency2.jar
+</code></pre></div><p><strong>Notably, all the dependent library JARs are placed in the Spring Boot-specific directory, <code>BOOT-INF</code></strong>.</p>
+<p>Due to this unique structure, a Spring Boot application requires a custom class loader, <code>LaunchedURLClassLoader</code>, to load all the classes in the <code>BOOT-INF/lib</code> directory. This is necessary because <strong>Java&rsquo;s <code>AppClassLoader</code> does not recognize the Spring Boot-specific <code>BOOT-INF</code> directory within the JAR file</strong>.</p>
+<h2 id="appclassloader-visibility-in-spring-boot-jar">AppClassloader Visibility in Spring Boot JAR</h2>
+<p>In our earlier example involving the <code>ForkJoinPool#commonPool()</code> and the <code>ExecutorService</code>, we observed that the former uses the <code>AppClassLoader</code> while the latter uses the custom <code>LaunchedURLClassLoader</code>.</p>
+<p>At this point, it becomes clear why the <code>AppClassLoader</code> used by the <code>ForkJoinPool</code>&rsquo;s common pool cannot see the class in the dependent library JAR. To reiterate, this is because Spring Boot packages the dependent library JARs into the <code>BOOT-INF/lib</code> directory, which the Java <code>AppClassLoader</code> does not recognize.</p>
+<h2 id="forkjoinpools-common-pool-initialization-sequence">ForkJoinPool&rsquo;s Common Pool Initialization Sequence</h2>
+<p><strong>The reason why the <code>ForkJoinPool</code>&rsquo;s common pool doesn&rsquo;t use the custom <code>LaunchedURLClassLoader</code> from Spring Boot is that the common pool in <code>ForkJoinPool</code> is instantiated in the static block of the class itself</strong>.</p>
+<p>For threads to inherit the <code>LaunchedURLClassLoader</code>, they must be created after the main method is executed. This is because the <code>LaunchedURLClassLoader</code> is set as the context class loader for the main thread after the <code>main</code> method is invoked.</p>
+<h2 id="why-doesnt-this-affect-mvnw-spring-bootrun">Why Doesn&rsquo;t This Affect <code>./mvnw spring-boot:run</code>?</h2>
+<p>If we run the application without first packaging it into a JAR file (i.e., invoking it on the terminal using <code>./mvnw spring-boot:run</code>), we can see that both code sections execute successfully.</p>
+<p><strong>The reason is that when we run our Spring Boot application using <code>./mvnw spring-boot:run</code>, we&rsquo;re running the application in the exploded classpath mode</strong>. In other words, the command specifically specifies the classpath using the <code>-cp</code> option to point to each of the JAR files we&rsquo;re depending on. Under this mode, the <code>AppClassloader</code> will not have problems finding the dependent class.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>In summary, Spring Boot JAR applications place the dependent JAR files into the custom <code>BOOT-INF/lib</code> folder within the JAR file. As these are Spring Boot-specific details, code that tries to load classes from the dependent JAR using <code>AppClassloader</code> will fail. This is because Java&rsquo;s <code>AppClassloader</code> will not know about the Spring Boot-specific details.</p>
+<p>Subsequently, we&rsquo;ve also learned that the common pool doesn&rsquo;t use the custom <code>LaunchedURLClassLoader</code> because it is instantiated way before the <code>main</code> method is invoked, which is when the custom class loader is set.</p>
+<p>Finally, we&rsquo;ve seen that the same problem won&rsquo;t occur if we don&rsquo;t run the application in the JAR file mode.</p>
+</div>
+    <div class="post-footer">
+      <div class="info">
+        
+
+        
+      </div>
+    </div>
+
+    
+  </div>
+
+
+          </div>
+        </div>
+      </main>
+      <aside><div
+  class="sidebar
+    .
+
+  "
+>
+  <div class="sidebar__content">
+    <div class="logo-title">
+      <div class="title">
+        <img src="/" alt="profile picture" />
+        <h3 title=""><a href="/">Chin Ming Jun</a></h3>
+        <div class="description">
+          <p>Thoughts and Deep Dives</p>
+        </div>
+      </div>
+    </div>
+    <ul class="social-links">
+      
+        <li>
+          <a href="https://my.linkedin.com/in/chin-ming-jun" rel="me" aria-label="Linkedin">
+            <i class="fab fa-linkedin fa-2x" aria-hidden="true"></i>
+          </a>
+        </li>
+
+      
+        <li>
+          <a href="https://github.com/mjchi7" rel="me" aria-label="Github">
+            <i class="fab fa-github fa-2x" aria-hidden="true"></i>
+          </a>
+        </li>
+
+      
+        <li>
+          <a href="mailto:mjchi7.misc@gmail.com" rel="me" aria-label="e-mail">
+            <i class="fas fa-envelope fa-2x" aria-hidden="true"></i>
+          </a>
+        </li>
+
+      
+    </ul>
+  </div><footer class="footer footer--sidebar">
+  <div class="by_farbox">
+    <ul class="footer__list">
+      <li class="footer__item">
+        &copy;
+        
+          2021-2024
+
+        
+      </li>
+      
+    </ul>
+  </div>
+</footer>
+  
+  <script
+    type="text/javascript"
+    src="/js/medium-zoom.min.71100d84fab0ad794b8399a66ac810700cc78d703f715dc10af4d7ba7b761362.js"
+    integrity="sha256-cRANhPqwrXlLg5mmasgQcAzHjXA/cV3BCvTXunt2E2I="
+    crossorigin="anonymous"
+  ></script></div>
+</aside>
+    </div><footer class="footer footer--base">
+  <div class="by_farbox">
+    <ul class="footer__list">
+      <li class="footer__item">
+        &copy;
+        
+          2021-2024
+
+        
+      </li>
+      
+    </ul>
+  </div>
+</footer>
+  
+  <script
+    type="text/javascript"
+    src="/js/medium-zoom.min.71100d84fab0ad794b8399a66ac810700cc78d703f715dc10af4d7ba7b761362.js"
+    integrity="sha256-cRANhPqwrXlLg5mmasgQcAzHjXA/cV3BCvTXunt2E2I="
+    crossorigin="anonymous"
+  ></script></body>
+</html>
