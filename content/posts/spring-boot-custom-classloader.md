@@ -1,11 +1,12 @@
 ---
-title: "Spring Boot Nested JAR: ForkJoinPool Common Pool's Lack of Visibility to Dependent Library Classes"
+title: "Spring Boot Nested JAR and Classloading Visibility Issues"
 date: 2024-12-17T10:50:39+08:00
 draft: false
+summary: ForkJoinPool's commonPool Unable to Load Dependent Library JAR Classes in a Spring Boot JAR Application
 ---
 
 ## Overview
-In this article, we'll explore the problem of using the `ForkJoinPool` in a Spring Boot JAR application. Specifically, **we'll understand why threads in the `ForkJoinPool` cannot load classes from dependent library JARs, while threads created using `ExecutorService` don't face the same issue in a Spring Boot JAR application**.
+In this article, we'll explore the problem of using the `ForkJoinPool` in a Spring Boot JAR application. Specifically, we'll understand why **threads in the `ForkJoinPool` cannot load classes from dependent library JARs, while threads created using `ExecutorService` don't face the same issue in a Spring Boot JAR application**.
 
 The root cause lies in the Spring Boot nested JAR structure and the class loaders used. We'll discuss how the `ForkJoinPool` uses the system class loader, why it lacks visibility into Spring Boot's nested JARs, and how Spring Boot's custom `LauncherURLClassLoader` helps.
 
@@ -98,7 +99,7 @@ my-app.jar
        +-dependency2.jar
 ```
 
-**Notably, all the dependent library JARs are placed in the Spring Boot-specific directory, `BOOT-INF`**.
+Notably, **all the dependent library JARs are placed in the Spring Boot-specific directory, `BOOT-INF`**.
 
 Due to this unique structure, a Spring Boot application requires a custom class loader, `LaunchedURLClassLoader`, to load all the classes in the `BOOT-INF/lib` directory. This is necessary because **Java's `AppClassLoader` does not recognize the Spring Boot-specific `BOOT-INF` directory within the JAR file**.
 

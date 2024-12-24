@@ -2,7 +2,7 @@
 title: "Istio: Sporadic 503 Error"
 date: 2021-09-11T17:33:20+08:00
 draft: false
-subtitle: "A curious tale of sporadic 503 errors in Istio service mesh"
+summary: HTTP/1.1 Pipelining Causing Intermittent 503 Errors
 ---
 ## Random 503 Errors
 Using Istio service mesh in production, I've often come across error logs from the `istio-proxy` sidecar that reports an observation of 503 errors with the response flags "UC":

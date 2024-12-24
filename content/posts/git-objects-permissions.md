@@ -2,6 +2,7 @@
 title: "Git Objects Permissions"
 date: 2022-11-16T10:50:39+08:00
 draft: false
+summary: In this article, we'll look at how Git is handling the file mode of each files we've checked in.
 ---
 ## Overview
 In this article, we'll look at how Git is handling the file mode of each file we've checked in.

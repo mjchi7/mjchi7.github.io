@@ -1,8 +1,8 @@
 ---
-title: "Jdbctemplate `queryForStream` Connection Leak"
+title: "Jdbctemplate queryForStream Connection Leak"
 date: 2022-05-29T12:17:13+08:00
 draft: false
-subtitle: "Java Stream and Resource Leak"
+summary: queryForStream and Connection Leak
 ---
 # Connection Leak in `queryForStream`
 ## tldr;
