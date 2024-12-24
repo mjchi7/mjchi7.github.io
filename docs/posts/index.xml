@@ -8,12 +8,12 @@
     <language>en</language>
     <lastBuildDate>Tue, 17 Dec 2024 10:50:39 +0800</lastBuildDate><atom:link href="https://example.com/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Spring Boot Nested JAR: ForkJoinPool Common Pool&#39;s Lack of Visibility to Dependent Library Classes</title>
+      <title>Spring Boot Nested JAR and Classloading Visibility Issues</title>
       <link>https://example.com/posts/spring-boot-custom-classloader/</link>
       <pubDate>Tue, 17 Dec 2024 10:50:39 +0800</pubDate>
       
       <guid>https://example.com/posts/spring-boot-custom-classloader/</guid>
-      <description>Overview In this article, we&amp;rsquo;ll explore the problem of using the ForkJoinPool in a Spring Boot JAR application.</description>
+      <description>ForkJoinPool&amp;rsquo;s commonPool Unable to Load Dependent Library JAR Classes in a Spring Boot JAR Application</description>
     </item>
     
     <item>
@@ -22,16 +22,16 @@
       <pubDate>Wed, 16 Nov 2022 10:50:39 +0800</pubDate>
       
       <guid>https://example.com/posts/git-objects-permissions/</guid>
-      <description>Overview In this article, we&amp;rsquo;ll look at how Git is handling the file mode of each file we&amp;rsquo;ve checked in.</description>
+      <description>In this article, we&amp;rsquo;ll look at how Git is handling the file mode of each files we&amp;rsquo;ve checked in.</description>
     </item>
     
     <item>
-      <title>Jdbctemplate `queryForStream` Connection Leak</title>
+      <title>Jdbctemplate queryForStream Connection Leak</title>
       <link>https://example.com/posts/jdbctemplate-queryforstream-connection-leak/</link>
       <pubDate>Sun, 29 May 2022 12:17:13 +0800</pubDate>
       
       <guid>https://example.com/posts/jdbctemplate-queryforstream-connection-leak/</guid>
-      <description>Connection Leak in queryForStream tldr; The method queryForStream provided by JDBCTemplate produce a Stream with database connection as sources and hence has to be closed explicitly.</description>
+      <description>queryForStream and Connection Leak</description>
     </item>
     
     <item>
@@ -40,7 +40,7 @@
       <pubDate>Sat, 11 Sep 2021 17:33:20 +0800</pubDate>
       
       <guid>https://example.com/posts/istio-sporadic-503-upstream-termination/</guid>
-      <description>Random 503 Errors Using Istio service mesh in production, I&amp;rsquo;ve often come across error logs from the istio-proxy sidecar that reports an observation of 503 errors with the response flags &amp;ldquo;UC&amp;rdquo;:</description>
+      <description>HTTP/1.1 Pipelining Causing Intermittent 503 Errors</description>
     </item>
     
   </channel>
