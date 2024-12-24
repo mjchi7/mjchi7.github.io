@@ -1,8 +1,8 @@
 baseURL = "https://example.com"
 languageCode = "en"
 DefaultContentLanguage = "en"
-title = "Website of Chin Ming Jun"
-theme = "anatole"
+title = "mjchi7"
+theme = "rocinante"
 summarylength = 10
 enableEmoji = true
 enableRobotsTXT = true
@@ -36,7 +36,6 @@ copyright = "2021-{{ YEAR }}"
 doNotLoadAnimations = true
 contentRatio = 0.7
 fullPostContent = true
-readMore = true
 
 [[params.socialIcons]]
 icon = "fab fa-linkedin"

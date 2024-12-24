@@ -1,214 +1,35 @@
 <!DOCTYPE html>
-<html
-  dir="ltr"
-  lang="en"
-  data-theme=""
-><head>
-  <title>
-    Chin Ming Jun
-      |
-      Git Objects Permissions
 
+  <html data-color-scheme="light">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    
-
-  </title>
-
-  
-  <meta charset="utf-8" /><meta name="generator" content="Hugo 0.92.2" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-  <meta
-    name="description"
-    content="
-      Thoughts and Deep Dives
-
-
-    "
-  />
-  
-  
-  
-  <link
-    rel="stylesheet"
-    href="/css/main.min.4e6cc5ab56240cbc65648d630c38f8a5ffe55999f9fdcf448cd7fa63564f4fd0.css"
-    integrity="sha256-TmzFq1YkDLxlZI1jDDj4pf/lWZn5/c9EjNf6Y1ZPT9A="
-    crossorigin="anonymous"
-    type="text/css"
-  />
-  
-  
-  <link
-    rel="stylesheet"
-    href="/css/markupHighlight.min.8e4c8f0a940b1596fb4c64d28a00a5ceed671fc303cb65178b4947417da9c674.css"
-    integrity="sha256-jkyPCpQLFZb7TGTSigClzu1nH8MDy2UXi0lHQX2pxnQ="
-    crossorigin="anonymous"
-    type="text/css"
-  />
-  
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
-    integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
-    crossorigin="anonymous"
-  />
-  
-  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-
-  <link rel="canonical" href="/posts/git-objects-permissions/" />
-
-  
-  
-  
-  
-  <script
-    type="text/javascript"
-    src="/js/anatole-header.min.2a2cd9614b7d007dfbb75e8da19e3a0fa872ceab53c6d000c00b7a0c89b85bfc.js"
-    integrity="sha256-KizZYUt9AH37t16NoZ46D6hyzqtTxtAAwAt6DIm4W/w="
-    crossorigin="anonymous"
-  ></script>
-
-  
-    
-    
-    <script
-      type="text/javascript"
-      src="/js/anatole-theme-switcher.min.7fd87181cdd7e8413aa64b6867bb32f3a8dc242e684fc7d5bbb9f600dbc2b6eb.js"
-      integrity="sha256-f9hxgc3X6EE6pktoZ7sy86jcJC5oT8fVu7n2ANvCtus="
-      crossorigin="anonymous"
-    ></script>
-
-  
-  <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Git Objects Permissions"/>
-<meta name="twitter:description" content="Overview In this article, we&rsquo;ll look at how Git is handling the file mode of each file we&rsquo;ve checked in."/>
+<title>Git Objects Permissions · mjchi7</title>
 
 
 
-  
 
 
-  
-  
-  
-  
-  <script type="application/ld+json">
-    {
-        "@context": "http://schema.org",
-        "@type": "BlogPosting",
-        "articleSection": "posts",
-        "name": "Git Objects Permissions",
-        "headline": "Git Objects Permissions",
-        "alternativeHeadline": "",
-        "description": "
-      
-        Overview In this article, we\u0026rsquo;ll look at how Git is handling the file mode of each file we\u0026rsquo;ve checked in.
+<link rel="stylesheet" href="/css/rocinante.min.css" />
 
-
-      
-
-
-    ",
-        "inLanguage": "en",
-        "isFamilyFriendly": "true",
-        "mainEntityOfPage": {
-            "@type": "WebPage",
-            "@id": "https:\/\/example.com\/posts\/git-objects-permissions\/"
-        },
-        "author" : {
-            "@type": "Person",
-            "name": "Chin Ming Jun"
-        },
-        "creator" : {
-            "@type": "Person",
-            "name": "Chin Ming Jun"
-        },
-        "accountablePerson" : {
-            "@type": "Person",
-            "name": "Chin Ming Jun"
-        },
-        "copyrightHolder" : {
-            "@type": "Person",
-            "name": "Chin Ming Jun"
-        },
-        "copyrightYear" : "2022",
-        "dateCreated": "2022-11-16T10:50:39.00Z",
-        "datePublished": "2022-11-16T10:50:39.00Z",
-        "dateModified": "2022-11-16T10:50:39.00Z",
-        "publisher":{
-            "@type":"Organization",
-            "name": "Chin Ming Jun",
-            "url": "https://example.com",
-            "logo": {
-                "@type": "ImageObject",
-                "url": "https:\/\/example.comfavicon-32x32.png",
-                "width":"32",
-                "height":"32"
-            }
-        },
-        "image": 
-      [
-      ]
-
-    ,
-        "url" : "https:\/\/example.com\/posts\/git-objects-permissions\/",
-        "wordCount" : "803",
-        "genre" : [ ],
-        "keywords" : [ ]
-    }
-  </script>
-
-
-
-</head>
 <body>
-    <header><div
-  class="page-top 
-    .
-
-  "
->
-  <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
-    <span aria-hidden="true"></span>
-    <span aria-hidden="true"></span>
-    <span aria-hidden="true"></span>
-  </a>
-  <nav>
-    <ul class="nav__list" id="navMenu">
-      <div class="nav__links">
-        
-        
-        
-      </div>
-      <li>
-        
-          <a class="theme-switch" title="Switch Theme">
-            <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-          </a>
-
-        
-      </li>
-    </ul>
-  </nav>
-</div>
+    <header><h2>
+  
+    <a href="https://example.com">‹ mjchi7</a>
+  
+</h2>
 </header>
-    <div class="wrapper">
-      <main>
-        <div class="autopagerize_page_element">
-          <div class="content">
-  <div
-    class="post 
-      .
+    <main>
 
-    "
-  >
-    <div class="post-content">
-      
-      <div class="post-title">
-        <h1>Git Objects Permissions</h1>
-        
-      </div><h2 id="overview">Overview</h2>
+    <div class="post">
+        <div class="title-group">
+            <div class="title">
+                <h1>Git Objects Permissions</h1>
+            </div>
+            <div class="date"><h5>Nov 16, 2022</h5></div>
+        </div>
+        <article class="content">
+            <h2 id="overview">Overview</h2>
 <p>In this article, we&rsquo;ll look at how Git is handling the file mode of each file we&rsquo;ve checked in.</p>
 <h2 id="file-mode-in-linux">File Mode In Linux</h2>
 <p>In Linux, each file has a file mode attribute. The file mode dictates the accessibility permission of the files for every user in the system.
@@ -235,7 +56,7 @@ total <span class="m">0</span>
 </code></pre></div><p>When converted to decimal form, it is <code>744</code>.</p>
 <p>Note that it&rsquo;s important to grasp this point right as most tools (such as <em>chmod</em>) in Linux that deals with permission accept permissions parameters in their decimal format.</p>
 <h2 id="how-does-git-keep-permission-of-files">How Does Git Keep Permission of Files</h2>
-<p>From <a href="https://git-scm.com/book/en/v2/Git-Internals-Git-Objects">Git&rsquo;s documentation</a>, it only has 3 different file modes for all the files checked in:</p>
+<p>From <a href="https://git-scm.com/book/en/v2/Git-Internals-Git-Objects" target="_blank">Git&rsquo;s documentation</a>, it only has 3 different file modes for all the files checked in:</p>
 <ul>
 <li>100644 - a normal file</li>
 <li>100755 - an executable file</li>
@@ -256,7 +77,7 @@ $ git commit -m <span class="s2">&#34;init&#34;</span>
 </code></pre></div><p>Notice that the file permission is now <code>100755</code>. In other words, our file permission has changed from <code>744</code> to <code>755</code></p>
 <h2 id="why-cant-git-store-permission-bits-for-different-group-of-users">Why Can&rsquo;t Git Store Permission Bits For Different Group Of Users?</h2>
 <p>A long time ago, Git used to track the exact file mode of all the files checked in. However, they were removed because it is noisy as the tracked changes are now littered with file mode changes made by different committer.
-The reference is taken from <a href="https://www.reddit.com/r/git/comments/cc7tin/comment/etlgcux/?utm_source=share&amp;utm_medium=web2x&amp;context=3">this Reddit comment</a> but here&rsquo;s the verbatim copy to prevent deadlinks:</p>
+The reference is taken from <a href="https://www.reddit.com/r/git/comments/cc7tin/comment/etlgcux/?utm_source=share&amp;utm_medium=web2x&amp;context=3" target="_blank">this Reddit comment</a> but here&rsquo;s the verbatim copy to prevent deadlinks:</p>
 <blockquote>
 <p>It only stores the executable bit, and this is a deliberate design choice as explained by Junio Hamano, Git&rsquo;s long-time maintainer in this email thread from December 2008:</p>
 <blockquote>
@@ -275,103 +96,23 @@ The reference is taken from <a href="https://www.reddit.com/r/git/comments/cc7ti
 </blockquote>
 <h2 id="summary">Summary</h2>
 <p>In Linux, we have file mode that restricts the permissions to a file for a different group of users. When they are checked into Git, only the executable bit is tracked and the rest of the owner and group bits are discarded.</p>
+
+        </article>
+        
+    </article>
+
+
+    </main>
+    <footer>
+  <div class="content-container">
+    <div class="content">
+
+
 </div>
-    <div class="post-footer">
-      <div class="info">
-        
-
-        
-      </div>
-    </div>
-
+  </div>
+</footer>
     
-  </div>
-
-
-          </div>
-        </div>
-      </main>
-      <aside><div
-  class="sidebar
-    .
-
-  "
->
-  <div class="sidebar__content">
-    <div class="logo-title">
-      <div class="title">
-        <img src="/" alt="profile picture" />
-        <h3 title=""><a href="/">Chin Ming Jun</a></h3>
-        <div class="description">
-          <p>Thoughts and Deep Dives</p>
-        </div>
-      </div>
-    </div>
-    <ul class="social-links">
-      
-        <li>
-          <a href="https://my.linkedin.com/in/chin-ming-jun" rel="me" aria-label="Linkedin">
-            <i class="fab fa-linkedin fa-2x" aria-hidden="true"></i>
-          </a>
-        </li>
-
-      
-        <li>
-          <a href="https://github.com/mjchi7" rel="me" aria-label="Github">
-            <i class="fab fa-github fa-2x" aria-hidden="true"></i>
-          </a>
-        </li>
-
-      
-        <li>
-          <a href="mailto:mjchi7.misc@gmail.com" rel="me" aria-label="e-mail">
-            <i class="fas fa-envelope fa-2x" aria-hidden="true"></i>
-          </a>
-        </li>
-
-      
-    </ul>
-  </div><footer class="footer footer--sidebar">
-  <div class="by_farbox">
-    <ul class="footer__list">
-      <li class="footer__item">
-        &copy;
-        
-          2021-2024
-
-        
-      </li>
-      
-    </ul>
-  </div>
-</footer>
-  
-  <script
-    type="text/javascript"
-    src="/js/medium-zoom.min.71100d84fab0ad794b8399a66ac810700cc78d703f715dc10af4d7ba7b761362.js"
-    integrity="sha256-cRANhPqwrXlLg5mmasgQcAzHjXA/cV3BCvTXunt2E2I="
-    crossorigin="anonymous"
-  ></script></div>
-</aside>
-    </div><footer class="footer footer--base">
-  <div class="by_farbox">
-    <ul class="footer__list">
-      <li class="footer__item">
-        &copy;
-        
-          2021-2024
-
-        
-      </li>
-      
-    </ul>
-  </div>
-</footer>
-  
-  <script
-    type="text/javascript"
-    src="/js/medium-zoom.min.71100d84fab0ad794b8399a66ac810700cc78d703f715dc10af4d7ba7b761362.js"
-    integrity="sha256-cRANhPqwrXlLg5mmasgQcAzHjXA/cV3BCvTXunt2E2I="
-    crossorigin="anonymous"
-  ></script></body>
+    <script>
+      const emailId = atob("");
+    </script></body>
 </html>
