@@ -2,28 +2,28 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://example.com/</loc>
+    <loc>https://mjchi7.github.io/</loc>
     <lastmod>2024-12-17T10:50:39+08:00</lastmod>
   </url><url>
-    <loc>https://example.com/posts/</loc>
+    <loc>https://mjchi7.github.io/posts/</loc>
     <lastmod>2024-12-17T10:50:39+08:00</lastmod>
   </url><url>
-    <loc>https://example.com/posts/spring-boot-custom-classloader/</loc>
+    <loc>https://mjchi7.github.io/posts/spring-boot-custom-classloader/</loc>
     <lastmod>2024-12-17T10:50:39+08:00</lastmod>
   </url><url>
-    <loc>https://example.com/posts/git-objects-permissions/</loc>
+    <loc>https://mjchi7.github.io/posts/git-objects-permissions/</loc>
     <lastmod>2022-11-16T10:50:39+08:00</lastmod>
   </url><url>
-    <loc>https://example.com/posts/jdbctemplate-queryforstream-connection-leak/</loc>
+    <loc>https://mjchi7.github.io/posts/jdbctemplate-queryforstream-connection-leak/</loc>
     <lastmod>2022-05-29T12:17:13+08:00</lastmod>
   </url><url>
-    <loc>https://example.com/posts/istio-sporadic-503-upstream-termination/</loc>
+    <loc>https://mjchi7.github.io/posts/istio-sporadic-503-upstream-termination/</loc>
     <lastmod>2021-09-11T17:33:20+08:00</lastmod>
   </url><url>
-    <loc>https://example.com/categories/</loc>
+    <loc>https://mjchi7.github.io/categories/</loc>
   </url><url>
-    <loc>https://example.com/series/</loc>
+    <loc>https://mjchi7.github.io/series/</loc>
   </url><url>
-    <loc>https://example.com/tags/</loc>
+    <loc>https://mjchi7.github.io/tags/</loc>
   </url>
 </urlset>

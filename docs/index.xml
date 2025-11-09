@@ -2,44 +2,44 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>mjchi7</title>
-    <link>https://example.com/</link>
+    <link>https://mjchi7.github.io/</link>
     <description>Recent content on mjchi7</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 17 Dec 2024 10:50:39 +0800</lastBuildDate><atom:link href="https://example.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 17 Dec 2024 10:50:39 +0800</lastBuildDate><atom:link href="https://mjchi7.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Spring Boot Nested JAR and Classloading Visibility Issues</title>
-      <link>https://example.com/posts/spring-boot-custom-classloader/</link>
+      <link>https://mjchi7.github.io/posts/spring-boot-custom-classloader/</link>
       <pubDate>Tue, 17 Dec 2024 10:50:39 +0800</pubDate>
       
-      <guid>https://example.com/posts/spring-boot-custom-classloader/</guid>
+      <guid>https://mjchi7.github.io/posts/spring-boot-custom-classloader/</guid>
       <description>ForkJoinPool&amp;rsquo;s commonPool Unable to Load Dependent Library JAR Classes in a Spring Boot JAR Application</description>
     </item>
     
     <item>
       <title>Git Objects Permissions</title>
-      <link>https://example.com/posts/git-objects-permissions/</link>
+      <link>https://mjchi7.github.io/posts/git-objects-permissions/</link>
       <pubDate>Wed, 16 Nov 2022 10:50:39 +0800</pubDate>
       
-      <guid>https://example.com/posts/git-objects-permissions/</guid>
+      <guid>https://mjchi7.github.io/posts/git-objects-permissions/</guid>
       <description>In this article, we&amp;rsquo;ll look at how Git is handling the file mode of each files we&amp;rsquo;ve checked in.</description>
     </item>
     
     <item>
       <title>Jdbctemplate queryForStream Connection Leak</title>
-      <link>https://example.com/posts/jdbctemplate-queryforstream-connection-leak/</link>
+      <link>https://mjchi7.github.io/posts/jdbctemplate-queryforstream-connection-leak/</link>
       <pubDate>Sun, 29 May 2022 12:17:13 +0800</pubDate>
       
-      <guid>https://example.com/posts/jdbctemplate-queryforstream-connection-leak/</guid>
+      <guid>https://mjchi7.github.io/posts/jdbctemplate-queryforstream-connection-leak/</guid>
       <description>queryForStream and Connection Leak</description>
     </item>
     
     <item>
       <title>Istio: Sporadic 503 Error</title>
-      <link>https://example.com/posts/istio-sporadic-503-upstream-termination/</link>
+      <link>https://mjchi7.github.io/posts/istio-sporadic-503-upstream-termination/</link>
       <pubDate>Sat, 11 Sep 2021 17:33:20 +0800</pubDate>
       
-      <guid>https://example.com/posts/istio-sporadic-503-upstream-termination/</guid>
+      <guid>https://mjchi7.github.io/posts/istio-sporadic-503-upstream-termination/</guid>
       <description>HTTP/1.1 Pipelining Causing Intermittent 503 Errors</description>
     </item>
     
