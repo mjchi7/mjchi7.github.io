@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# Pre-commit hook to automatically rebuild Hugo site
+# This ensures the docs/ directory is always up to date with content changes
+
+echo "🔨 Pre-commit: Rebuilding Hugo site..."
+
+# Run Hugo build (with clean destination directory)
+if hugo --cleanDestinationDir -d docs; then
+    echo "✅ Hugo build successful"
+
+    # Copy images to docs directory
+    if [ -d "images" ]; then
+        cp -r images docs/images
+        echo "✅ Images copied"
+    fi
+
+    # Stage the built files
+    git add docs/
+    echo "✅ Built files staged for commit"
+
+    exit 0
+else
+    echo "❌ Hugo build failed! Commit aborted."
+    exit 1
+fi
