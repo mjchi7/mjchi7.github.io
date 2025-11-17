@@ -46,7 +46,7 @@
 <p>Upon receiving the <code>SIGKILL</code> signal, the kernel stops scheduling the target process. Subsequently, it begins reclaiming all the resources of the application process.</p>
 <p><strong>Importantly, the application proess is entirely unaware of the termination throughout the entire forceful shutdown</strong>. As a result, the application process cannot anticipate the signal and run any cleanup processes.</p>
 <h2 id="jvm-shutdown-sequence">JVM Shutdown Sequence</h2>
-<p>In the JVM Runtime specification, the documentation clearly defines the trigger for the shutdown, as well as the shutdown sequence itself.</p>
+<p>In the <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Runtime.html#termination" target="_blank">JVM Runtime specification</a>, the documentation clearly defines the trigger for the shutdown, as well as the shutdown sequence itself.</p>
 <p>Visually:</p>
 <p><img src="/images/jvm-shutdown-behavior/jvm-shutdown-sequence-and-triggers.png" alt="jvm-shutdown-sequence-and-triggers"></p>
 <h3 id="triggers">Triggers</h3>
