@@ -2,11 +2,14 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://mjchi7.github.io/posts/jvm-shutdown-behavior/</loc>
+    <lastmod>2025-11-15T11:26:25+08:00</lastmod>
+  </url><url>
     <loc>https://mjchi7.github.io/</loc>
-    <lastmod>2024-12-17T10:50:39+08:00</lastmod>
+    <lastmod>2025-11-15T11:26:25+08:00</lastmod>
   </url><url>
     <loc>https://mjchi7.github.io/posts/</loc>
-    <lastmod>2024-12-17T10:50:39+08:00</lastmod>
+    <lastmod>2025-11-15T11:26:25+08:00</lastmod>
   </url><url>
     <loc>https://mjchi7.github.io/posts/spring-boot-custom-classloader/</loc>
     <lastmod>2024-12-17T10:50:39+08:00</lastmod>

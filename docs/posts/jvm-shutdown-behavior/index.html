@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+
+  <html data-color-scheme="light">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>JVM Shutdown Sequence and Spring Boot&#39;s Shutdown Hook · mjchi7</title>
+
+
+
+
+
+<link rel="stylesheet" href="/css/rocinante.min.css" />
+
+<body>
+    <header><h2>
+  
+    <a href="https://mjchi7.github.io">‹ mjchi7</a>
+  
+</h2>
+</header>
+    <main>
+
+    <div class="post">
+        <div class="title-group">
+            <div class="title">
+                <h1>JVM Shutdown Sequence and Spring Boot&#39;s Shutdown Hook</h1>
+            </div>
+            <div class="date"><h5>Nov 15, 2025</h5></div>
+        </div>
+        <article class="content">
+            <h2 id="overview">Overview</h2>
+<p>In this article, we&rsquo;ll look at the JVM shutdown behavior. Specifically, we&rsquo;ll learn about the specific process the JVM undertakes during a graceful shutdown. Additionally, we&rsquo;ll learn how Spring Boot hooks into this behavior to ensure beans are properly cleaned up during graceful shutdown.</p>
+<h2 id="graceful-vs-non-graceful-shutdown">Graceful vs. Non-graceful Shutdown</h2>
+<p>Generally speaking, applications can be shut down in a graceful and non-graceful (a.k.a. forceful shutdown) way.</p>
+<p>Visually:</p>
+<p><img src="../../images/jvm-shutdown-behavior/graceful-vs-nongraceful-shutdown.png" alt="graceful-vs-nongraceful-shutdown"></p>
+<h3 id="graceful-shutdown">Graceful Shutdown</h3>
+<p>During a graceful shutdown, the application process itself is made aware that there’s an intention to shut down. Then, it initiates a series of processes to stop accepting new tasks and finalize the running tasks.</p>
+<p>To trigger a graceful shutdown, we typically send POSIX signals, such as <code>SIGINT</code> and <code>SIGTERM</code>, to the application process.</p>
+<p>Crucially, <strong>graceful shutdown prevents any partially processed tasks that might lead to data corruption</strong>. Concretely, it gives the application process an opportunity to run cleanup tasks before yielding to the kernel for the final cleanup.</p>
+<p>In most cases, a graceful shutdown comes with a timeout. Beyond the graceful duration, a non-graceful shutdown will be initiated.</p>
+<h3 id="non-graceful-shutdown">Non-graceful Shutdown</h3>
+<p>Non-graceful shutdown of an application means that the <strong>application process get terminated immediately without a chance to run its usual shutdown sequence</strong>.</p>
+<p>For instance, we can instantly kill off an application process in Linux using the <code>kill -9 $PID</code> command. The command sends the <code>SIGKILL</code> signal to the process.</p>
+<p>Upon receiving the <code>SIGKILL</code> signal, the kernel stops scheduling the target process. Subsequently, it begins reclaiming all the resources of the application process.</p>
+<p><strong>Importantly, the application proess is entirely unaware of the termination throughout the entire forceful shutdown</strong>. As a result, the application process cannot anticipate the signal and run any cleanup processes.</p>
+<h2 id="jvm-shutdown-sequence">JVM Shutdown Sequence</h2>
+<p>In the JVM Runtime specification, the documentation clearly defines the trigger for the shutdown, as well as the shutdown sequence itself.</p>
+<p>Visually:</p>
+<p><img src="../../images/jvm-shutdown-behavior/jvm-shutdown-sequence-and-triggers.png" alt="jvm-shutdown-sequence-and-triggers"></p>
+<h3 id="triggers">Triggers</h3>
+<p>When one of the following events happens, the JVM initiates the shutdown sequence:</p>
+<ol>
+<li>
+<p>When there aren&rsquo;t any live non-daemon threads.</p>
+</li>
+<li>
+<p>When the <code>System.exit</code> is invoked</p>
+</li>
+<li>
+<p>When the JVM processes receive signals from the OS. In a POSIX system, signals like <code>SIGINT</code> and <code>SIGTERM</code> trigger the shutdown process.</p>
+</li>
+</ol>
+<h3 id="shutdown-sequence">Shutdown Sequence</h3>
+<ol>
+<li>
+<p>Starts all shutdown hooks concurrently</p>
+</li>
+<li>
+<p>Wait for all the shutdown hooks to return.</p>
+</li>
+<li>
+<p>Calls <code>Runtime.halt()</code></p>
+</li>
+<li>
+<p>Kernel-level process termination (i.e., clearing scheduling queue, reclaiming resources).</p>
+</li>
+</ol>
+<h2 id="thread-interruption-during-shutdown">Thread Interruption During Shutdown?</h2>
+<p>A commonly misunderstood aspect of the JVM shutdown sequence is that the JVM Runtime will interrupt (using the <code>interrupt()</code> method) all the living, non-daemon threads as part of the shutdown process.</p>
+<p>However, as we can see from the documentation, the shutdown process does not interrupt the non-daemon threads during its shutdown sequence.</p>
+<p>If we have running threads that needs to be interrupted during the shutdown so that it can be cleaned up, it&rsquo;s important to ensure that a shutdown hook is installed that invoke the <code>interrupt</code> method on the thread.</p>
+<h3 id="interrupting-threads-using-shutdown-hook">Interrupting Threads Using Shutdown Hook</h3>
+<p>To visualize the difference, we&rsquo;ll create two examples.</p>
+<p>The first example shows that without installing a shutdown hook, no <code>InterruptedException</code> will be thrown in our processing during shutdown:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java">
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">NoShutdownHookDemo</span> <span class="o">{</span>
+
+
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+
+        <span class="n">Thread</span> <span class="n">worker</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Thread</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="o">{</span>
+
+            <span class="k">try</span> <span class="o">{</span>
+
+                <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;[Worker] Started. Going to sleep...&#34;</span><span class="o">);</span>
+
+                <span class="n">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="n">10_000</span><span class="o">);</span>
+
+                <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;[Worker] Woke up normally.&#34;</span><span class="o">);</span>
+
+            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+
+                <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;[Worker] Interrupted!&#34;</span><span class="o">);</span>
+
+            <span class="o">}</span>
+
+        <span class="o">});</span>
+
+
+
+        <span class="n">worker</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+
+
+
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;[Main] Press Ctrl+C now...&#34;</span><span class="o">);</span>
+
+        <span class="n">worker</span><span class="o">.</span><span class="na">join</span><span class="o">();</span>
+
+    <span class="o">}</span>
+
+<span class="o">}</span>
+
+</code></pre></div><p>Running the code above, we&rsquo;ll get the following output:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">
+[Main] Press Ctrl+C now...
+
+[Worker] Started. Going to sleep...
+
+</code></pre></div><p>Next, we&rsquo;ll register a shutdown hook that interrupts our worker thread:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java">
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">WithShutdownHookDemo</span> <span class="o">{</span>
+
+
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+
+        <span class="n">Thread</span> <span class="n">worker</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Thread</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="o">{</span>
+
+            <span class="k">try</span> <span class="o">{</span>
+
+                <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;[Worker] Started. Going to sleep...&#34;</span><span class="o">);</span>
+
+                <span class="n">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="n">10_000</span><span class="o">);</span>
+
+                <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;[Worker] Woke up normally.&#34;</span><span class="o">);</span>
+
+            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+
+                <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;[Worker] Interrupted! Cleaning up...&#34;</span><span class="o">);</span>
+
+            <span class="o">}</span>
+
+        <span class="o">});</span>
+
+
+
+        <span class="c1">// Register shutdown hook that interrupts worker thread
+</span><span class="c1"></span>
+        <span class="n">Runtime</span><span class="o">.</span><span class="na">getRuntime</span><span class="o">().</span><span class="na">addShutdownHook</span><span class="o">(</span><span class="k">new</span> <span class="n">Thread</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="o">{</span>
+
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;[ShutdownHook] JVM shutting down. Interrupting worker...&#34;</span><span class="o">);</span>
+
+            <span class="n">worker</span><span class="o">.</span><span class="na">interrupt</span><span class="o">();</span>
+
+        <span class="o">}));</span>
+
+
+
+        <span class="n">worker</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+
+
+
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;[Main] Press Ctrl+C now...&#34;</span><span class="o">);</span>
+
+        <span class="n">worker</span><span class="o">.</span><span class="na">join</span><span class="o">();</span>
+
+    <span class="o">}</span>
+
+<span class="o">}</span>
+
+</code></pre></div><p>Subsequently, when we run the program and send a <code>SIGINT</code> signal using <code>CTRL+C</code>, we&rsquo;ll observe the following output:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">
+[Main] Press Ctrl+C now...
+
+[Worker] Started. Going to sleep...
+
+^C[ShutdownHook] JVM shutting down. Interrupting worker...
+
+[Worker] Interrupted! Cleaning up...
+
+</code></pre></div><h2 id="spring-boot-shutdown-and-jvm-shutdown-hook">Spring Boot Shutdown and JVM Shutdown Hook</h2>
+<p>To enable graceful shutdown, <a href="https://docs.spring.io/spring-boot/reference/features/spring-application.html#features.spring-application.application-exit" target="_blank">Spring Boot registers a JVM shutdown hook</a> for each of the <code>SpringApplication</code>.</p>
+<p>The shutdown hook registered will invoke the appropriate destruction lifecycle methods when the shutdown hook is invoked during the JVM shutdown sequence.</p>
+<p>For example, the Spring Boot shutdown logic will call the <code>destroy</code> method on beans that implement the <a href="https://docs.spring.io/spring-framework/docs/6.2.x/javadoc-api/org/springframework/beans/factory/DisposableBean.html" target="_blank"><code>DisposableBean</code></a> interface.</p>
+<p>Besides that, the shutdown hook also invokes the methods that are annotated with the <a href="https://jakarta.ee/specifications/annotations/2.1/apidocs/jakarta/annotation/PreDestroy.html" target="_blank"><code>@PreDestroy</code></a> annotation.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>In this article, we&rsquo;ve learned that JVM invokes and wait on all the shutdown hooks as part of its shutdown process. Importantly, we&rsquo;ve seen that non-daemon threads by default are not interrupted by the Runtime during the usual shutdown sequence.</p>
+<p>Additionally, we&rsquo;ve learned that in Spring application registers a shutdown hook with the JVM so that they gets notified about the JVM shutdown event. This hook, in turn, initiates the context shutdown process, which includes invoking methods annotated with the <code>@PreDestory</code> annotation, and calling the <code>destroy</code> method on classes that implement the <code>DisposableBean</code> interface.</p>
+
+        </article>
+        
+    </article>
+
+
+    </main>
+    <footer>
+  <div class="content-container">
+    <div class="content">
+
+
+</div>
+  </div>
+</footer>
+    
+    <script>
+      const emailId = atob("");
+    </script></body>
+</html>

@@ -6,7 +6,16 @@
     <description>Recent content on mjchi7</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 17 Dec 2024 10:50:39 +0800</lastBuildDate><atom:link href="https://mjchi7.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 15 Nov 2025 11:26:25 +0800</lastBuildDate><atom:link href="https://mjchi7.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>JVM Shutdown Sequence and Spring Boot&#39;s Shutdown Hook</title>
+      <link>https://mjchi7.github.io/posts/jvm-shutdown-behavior/</link>
+      <pubDate>Sat, 15 Nov 2025 11:26:25 +0800</pubDate>
+      
+      <guid>https://mjchi7.github.io/posts/jvm-shutdown-behavior/</guid>
+      <description>JVM shutdown behavior and how Spring Boot ensure destroy methods are invoked during shutdown</description>
+    </item>
+    
     <item>
       <title>Spring Boot Nested JAR and Classloading Visibility Issues</title>
       <link>https://mjchi7.github.io/posts/spring-boot-custom-classloader/</link>
