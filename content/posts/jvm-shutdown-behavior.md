@@ -28,6 +28,8 @@ During a graceful shutdown, the application process itself is made aware that th
 
 To trigger a graceful shutdown, we typically send POSIX signals, such as `SIGINT` and `SIGTERM`, to the application process.
 
+> Note: difference between `SIGINT` and `SIGTERM`? `SIGINT` is meant for interactive program where upon receiving such signal, should return to the menu. But for non-interactive programs, most treat it the same as `SIGTERM`. -- [Reddit](https://www.reddit.com/r/linuxadmin/comments/h9bzcc/what_is_the_difference_between_sigint_and_sigterm/)
+
 Crucially, **graceful shutdown prevents any partially processed tasks that might lead to data corruption**. Concretely, it gives the application process an opportunity to run cleanup tasks before yielding to the kernel for the final cleanup. 
 
 In most cases, a graceful shutdown comes with a timeout. Beyond the graceful duration, a non-graceful shutdown will be initiated.
