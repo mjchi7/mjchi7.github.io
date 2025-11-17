@@ -34,7 +34,7 @@
 <h2 id="graceful-vs-non-graceful-shutdown">Graceful vs. Non-graceful Shutdown</h2>
 <p>Generally speaking, applications can be shut down in a graceful and non-graceful (a.k.a. forceful shutdown) way.</p>
 <p>Visually:</p>
-<p><img src="../../images/jvm-shutdown-behavior/graceful-vs-nongraceful-shutdown.png" alt="graceful-vs-nongraceful-shutdown"></p>
+<p><img src="/images/jvm-shutdown-behavior/graceful-vs-nongraceful-shutdown.png" alt="graceful-vs-nongraceful-shutdown"></p>
 <h3 id="graceful-shutdown">Graceful Shutdown</h3>
 <p>During a graceful shutdown, the application process itself is made aware that there’s an intention to shut down. Then, it initiates a series of processes to stop accepting new tasks and finalize the running tasks.</p>
 <p>To trigger a graceful shutdown, we typically send POSIX signals, such as <code>SIGINT</code> and <code>SIGTERM</code>, to the application process.</p>
@@ -48,7 +48,7 @@
 <h2 id="jvm-shutdown-sequence">JVM Shutdown Sequence</h2>
 <p>In the JVM Runtime specification, the documentation clearly defines the trigger for the shutdown, as well as the shutdown sequence itself.</p>
 <p>Visually:</p>
-<p><img src="../../images/jvm-shutdown-behavior/jvm-shutdown-sequence-and-triggers.png" alt="jvm-shutdown-sequence-and-triggers"></p>
+<p><img src="/images/jvm-shutdown-behavior/jvm-shutdown-sequence-and-triggers.png" alt="jvm-shutdown-sequence-and-triggers"></p>
 <h3 id="triggers">Triggers</h3>
 <p>When one of the following events happens, the JVM initiates the shutdown sequence:</p>
 <ol>
