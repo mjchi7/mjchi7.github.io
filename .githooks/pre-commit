@@ -11,7 +11,7 @@ if hugo --cleanDestinationDir -d docs; then
 
     # Copy images to docs directory
     if [ -d "images" ]; then
-        cp -r images docs/images
+        cp -r images docs/
         echo "✅ Images copied"
     fi
 
