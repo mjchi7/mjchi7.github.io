@@ -5,15 +5,9 @@
 
 echo "🔨 Pre-commit: Rebuilding Hugo site..."
 
-# Run Hugo build (with clean destination directory)
-if hugo --cleanDestinationDir -d docs; then
-    echo "✅ Hugo build successful"
-
-    # Copy images to docs directory
-    if [ -d "images" ]; then
-        cp -r images docs/
-        echo "✅ Images copied"
-    fi
+# Run the build using Makefile (single source of truth)
+if make build; then
+    echo "✅ Build successful"
 
     # Stage the built files
     git add docs/
@@ -21,6 +15,6 @@ if hugo --cleanDestinationDir -d docs; then
 
     exit 0
 else
-    echo "❌ Hugo build failed! Commit aborted."
+    echo "❌ Build failed! Commit aborted."
     exit 1
 fi
