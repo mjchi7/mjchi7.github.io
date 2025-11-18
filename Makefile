@@ -13,7 +13,7 @@ clean:
 .PHONY: build
 build: clean
 	hugo -d docs/
-	cp -r images docs/images
+	cp -r images docs/
 
 # Serve the blog locally
 .PHONY: serve
